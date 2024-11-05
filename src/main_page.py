@@ -1,5 +1,12 @@
 import streamlit as st
+
 from st_clickable_images import clickable_images
+from streamlit import title
+
+st.set_page_config(
+    page_title="SakurAI Market",
+    page_icon="🌸"
+)
 
 clicked = clickable_images(
     [
@@ -12,11 +19,14 @@ clicked = clickable_images(
     titles=[f"Image #{str(i*2)}" for i in range(5)],
     div_style={"display": "flex", "justify-content": "center", "flex-wrap": "wrap"},
     img_style={"margin": "5px", "height": "200px"},
+    
+    
+
 )
 
 st.markdown(f"Image #{clicked} clicked" if clicked > -1 else "No image clicked")
 
-pages_str = ["pages/learn.py", "pages/create_account.py", "pages/manage_account.py"]
+pages_str = ["pages/learn.py", "pages/cv_analysis.py", "pages/marketing_chatbot.py"]
 
 if clicked != -1:
     print(clicked)
