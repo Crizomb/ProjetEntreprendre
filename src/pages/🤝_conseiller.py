@@ -42,9 +42,38 @@ def response_generator(response):
 
 st.title("Helper ChatBot")
 
+# Style CSS pour personnaliser l'arrière-plan et le style des éléments
+st.markdown("""
+    <style>
+        .main { background-color: #f5f5f5; }  /* Couleur de fond principale */
+        .header { color: #ff69b4; text-align: center; }  /* Couleur de l'en-tête */
+        .subheader { color: #6a1b9a; font-size: 24px; text-align: center; } /* Sous-titre */
+        .image-container { text-align: center; margin-top: 30px; }  /* Conteneur d'images */
+        .footer { text-align: center; padding-top: 30px; font-size: 16px; color: #888; }
+
+        div[data-testid="stSidebarHeader"] > img, div[data-testid="collapsedControl"] > img {
+      height: 8rem;
+      width: auto;
+  }
+
+  div[data-testid="stSidebarHeader"], div[data-testid="stSidebarHeader"] > *,
+  div[data-testid="collapsedControl"], div[data-testid="collapsedControl"] > * {
+      display: flex;
+      align-items: center;
+  }
+    </style>
+""", unsafe_allow_html=True)
+
+
+# Logo SakurAI en haut de la page
+st.logo("sakurai_proto.png", size="large")
+
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+if "has_started" not in st.session_state:
+    st.session_state.has_started = False
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
@@ -60,16 +89,21 @@ if prompt := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 hello_msg = """Bonjour et bienvenue sur SakurAI Market ! 🌸
-Je suis là pour vous guider vers l'outil qui répondra le mieux à vos besoins. Que vous cherchiez une analyse de CV, une assistance avec nos solutions ou des conseils pour optimiser vos processus, je suis à votre disposition pour vous aiguiller ! Comment puis-je vous aider aujourd’hui ?"""
+Je suis là pour vous guider vers l'outil qui répondra le mieux à vos besoins. Si vous chercher une assistance avec nos solutions ou des conseils pour optimiser vos processus, je suis à votre disposition pour vous aiguiller ! Comment puis-je vous aider aujourd’hui ?"""
 
 # Display assistant response in chat message container
 with st.chat_message("assistant"):
     if prompt:
         response = st.write_stream(response_generator(get_mistral_response(prompt)))
-    else:
+    elif not st.session_state.has_started:
         response = st.write_stream(response_generator(hello_msg))
+        st.session_state.has_started = True
+    else:
+        response = ""
+
+
 # Add assistant response to chat history
-st.session_state.messages.append({"role": "assistant", "content": response})
+if response != "" : st.session_state.messages.append({"role": "assistant", "content": response})
 
 
 # Pied de page
