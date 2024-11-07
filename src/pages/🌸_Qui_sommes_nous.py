@@ -1,10 +1,11 @@
 import streamlit as st
 
 # Configuration de la page
+# Configuration de la page
 st.set_page_config(
-    page_title="SakurAI Market - En apprendre plus",
-    page_icon="🚀",
-    layout="centered"
+    page_title="SakurAI Market - Qui sommes-nous",
+    page_icon="🌸",
+    layout="wide"  # Utiliser la largeur complète de l'écran
 )
 
 # Titre principal

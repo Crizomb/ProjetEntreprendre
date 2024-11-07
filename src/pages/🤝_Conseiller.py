@@ -5,6 +5,11 @@ import time
 from dotenv import load_dotenv
 from mistralai import Mistral
 
+st.set_page_config(
+    page_title="SakurAI Market - Conseiller virtuel",
+    page_icon="🌸",
+    layout="wide"  # Utiliser la largeur complète de l'écran
+)
 
 
 # check https://pypi.org/project/python-dotenv/ to add MISTRAl_KEY to a .env
@@ -41,6 +46,7 @@ def response_generator(response):
         time.sleep(0.05)
 
 st.title("Helper ChatBot")
+
 
 # Style CSS pour personnaliser l'arrière-plan et le style des éléments
 st.markdown("""

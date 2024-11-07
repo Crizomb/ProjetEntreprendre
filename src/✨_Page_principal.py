@@ -43,32 +43,38 @@ st.logo("sakurai_proto.png", size="large")
 
 # Titre principal et sous-titre
 st.title("SakurAI Market", anchor="center")
-st.subheader("Nos solutions")
+st.write("SakurAI : L'intelligence artificielle, en toute simplicité.")
+st.header("Nos solutions")
+
+st.subheader("Solutions ressources humaines")
 
 # Section de projets avec images cliquables
 st.markdown("<div class='image-container'>", unsafe_allow_html=True)
 clicked = clickable_images(
     [
-        f"data:image/png;base64,{get_img_as_base64('logo_sakurai.png')}",
-        f"data:image/png;base64,{get_img_as_base64('analyse_cv.webp')}",
-        f"data:image/png;base64,{get_img_as_base64('helper_chat_bot.webp')}"
+        f"data:image/png;base64,{get_img_as_base64('analyse_cv.webp')}"
+        # f"data:image/png;base64,{get_img_as_base64('helper_chat_bot.webp')}"
     ],
-    titles=["Qui sommes-nous", "Analyse de CV", "Conseiller virtuel"],
+    titles=["Analyse de CV"],
     div_style={"display": "flex", "justify-content": "center", "flex-wrap": "wrap"},
-    img_style={"margin": "5px", "height": "300px", "width": "300px", "border-radius": "10px"},
+    img_style={"margin": "25px", "height": "300px", "width": "300px", "border-radius": "10px"},
 )
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Message affiché en fonction de l'image cliquée
-if clicked != -1:
-    st.write(f"Image '{clicked}' clicked!")
-else:
-    st.write("Cliquez sur une image pour en savoir plus.")
-
 # Redirection vers une autre page si une image est cliquée
-pages_str = ["pages/🌸_qui_sommes_nous.py", "pages/📑_analyse_de_cv.py", "pages/🤝_conseiller.py"]
+pages_str = ["pages/📑_Analyse_de_CVs.py"]
 if clicked != -1 and clicked < len(pages_str):
     st.switch_page(pages_str[clicked])
+
+st.markdown("D'autres à venir... (Prédiction d'évolution de carrières automatisée) ")
+
+st.subheader("Solutions marketing")
+st.markdown("à venir... (Analyse de marché automatisé...)")
+
+st.subheader("Solutions financière")
+st.markdown("à venir... (Analyse et rédaction de factures automatisé...)")
+
+
 
 # Pied de page
 st.markdown("<div class='footer'>SakurAI Market © 2024. Tous droits réservés.</div>", unsafe_allow_html=True)
